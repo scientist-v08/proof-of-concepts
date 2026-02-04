@@ -1,0 +1,11 @@
+<lib-shared-ui-header
+    [title]="title"
+    [allRoutes]="routes()"
+    [inputBgColorTxColor]="
+        ' text-black bg-amber-50 dark:text-amber-200 dark:bg-indigo-950 font-cinzel min-h-[10vh]'
+    "
+    (logoutClicked)="loginService.logout()"
+/>
+<main class="min-h-[90vh] bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 p-8">
+    <router-outlet></router-outlet>
+</main>

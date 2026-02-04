@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.p-card {
+    @apply bg-white dark:bg-slate-700 !important;
+}
+
+.p-tabpanels {
+    @apply bg-transparent dark:bg-transparent !important;
+}
+
+.p-tablist {
+    @apply bg-transparent dark:bg-transparent !important;
+}
+
+.p-paginator {
+    @apply bg-transparent !important;
+}

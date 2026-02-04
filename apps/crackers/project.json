@@ -1,0 +1,81 @@
+{
+    "name": "crackers",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "prefix": "app",
+    "sourceRoot": "apps/crackers/src",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@angular/build:application",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "outputPath": "dist/apps/crackers",
+                "browser": "apps/crackers/src/main.ts",
+                "tsConfig": "apps/crackers/tsconfig.app.json",
+                "inlineStyleLanguage": "scss",
+                "assets": [
+                    {
+                        "glob": "**/*",
+                        "input": "apps/crackers/public"
+                    }
+                ],
+                "styles": ["apps/crackers/src/styles.scss"]
+            },
+            "configurations": {
+                "production": {
+                    "fileReplacements": [
+                        {
+                            "replace": "apps/crackers/src/environments/environment.development.ts",
+                            "with": "apps/crackers/src/environments/environment.ts"
+                        }
+                    ],
+                    "budgets": [
+                        {
+                            "type": "initial",
+                            "maximumWarning": "1.5mb",
+                            "maximumError": "1.5mb"
+                        },
+                        {
+                            "type": "anyComponentStyle",
+                            "maximumWarning": "2kb",
+                            "maximumError": "4kb"
+                        }
+                    ],
+                    "outputHashing": "all"
+                },
+                "development": {
+                    "optimization": false,
+                    "extractLicenses": false,
+                    "sourceMap": true
+                }
+            },
+            "defaultConfiguration": "production"
+        },
+        "serve": {
+            "continuous": true,
+            "executor": "@angular/build:dev-server",
+            "configurations": {
+                "production": {
+                    "buildTarget": "crackers:build:production"
+                },
+                "development": {
+                    "buildTarget": "crackers:build:development"
+                }
+            },
+            "defaultConfiguration": "development"
+        },
+        "lint": {
+            "executor": "@nx/eslint:lint"
+        },
+        "serve-static": {
+            "continuous": true,
+            "executor": "@nx/web:file-server",
+            "options": {
+                "buildTarget": "crackers:build",
+                "staticFilePath": "dist/apps/crackers/browser",
+                "spa": true
+            }
+        }
+    }
+}
