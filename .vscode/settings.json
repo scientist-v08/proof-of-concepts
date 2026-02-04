@@ -1,0 +1,22 @@
+{
+  // Set Prettier as default formatter
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Format when you save (highly recommended!)
+  "editor.formatOnSave": true,
+
+  // Optional but very useful for Angular + Tailwind projects
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "files.associations": {
+    "*.scss": "tailwindcss"
+  }
+}

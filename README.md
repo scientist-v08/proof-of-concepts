@@ -6,10 +6,10 @@ A curated collection of **Proof of Concepts** built with [Angular](https://angul
 
 ## 📦 What's Inside
 
-| POC | Description | Status |
-|-----|-------------|--------|
-| `poc-1` | *Crackers* | Completed |
-| `poc-2` | *Astrology project* | In progress |
+| POC     | Description         | Status      |
+| ------- | ------------------- | ----------- |
+| `poc-1` | _Crackers_          | Completed   |
+| `poc-2` | _Astrology project_ | In progress |
 
 Each POC is a standalone application or library within the Nx workspace, ensuring clean boundaries and independent evolution.
 
@@ -21,7 +21,7 @@ Each POC is a standalone application or library within the Nx workspace, ensurin
 - **[Angular](https://angular.io/)** — Modern web platform
 - **[TypeScript](https://www.typescriptlang.org/)** — Typed JavaScript at scale
 - **[ESLint](https://eslint.org/)** — Pluggable linting utility
-- **[Tailwindcss](https://v3.tailwindcss.com/)**  — Modern CSS
+- **[Tailwindcss](https://v3.tailwindcss.com/)** — Modern CSS
 
 ---
 
@@ -41,3 +41,4 @@ cd proof-of-concepts;
 
 # Install dependencies
 npm install
+```
