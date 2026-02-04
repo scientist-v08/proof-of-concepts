@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     darkMode: 'media',
-    content: ['./apps/forms/src/app/*.{ts,html}', './apps/forms/src/index.html'],
+    content: ['./apps/crackers/src/**/*.{ts,html}', './apps/crackers/src/index.html'],
     theme: {
         extend: {
             fontFamily: {
