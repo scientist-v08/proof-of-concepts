@@ -36,7 +36,8 @@ Each POC is a standalone application or library within the Nx workspace, ensurin
 
 ```bash
 # Clone the repository
-cd &lt;repo-name&gt;
+git clone https://github.com/scientist-v08/proof-of-concepts.git
+cd proof-of-concepts;
 
 # Install dependencies
 npm install
