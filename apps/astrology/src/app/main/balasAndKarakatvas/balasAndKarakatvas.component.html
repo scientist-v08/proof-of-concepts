@@ -1,0 +1,169 @@
+<div class="w-full mt-2 bg-white rounded-2xl p-6 flex flex-col gap-4 box-border">
+    <h4 class="font-black font-lexend text-lg">Bhava Lord & Shad Bala</h4>
+
+    <p-stepper [linear]="true" [value]="activeStep()" (valueChange)="onStepChange($event)">
+        <p-step-list>
+            <p-step [value]="1">Graha Placements</p-step>
+            <p-step [value]="2">Bala Values</p-step>
+        </p-step-list>
+
+        <p-step-panels>
+            <!-- STEP 1 : PLACEMENTS -->
+            <p-step-panel [value]="1">
+                <ng-template pTemplate="content" let-activateCallback="activateCallback">
+                    <div class="grid grid-cols-3 gap-4">
+                        @for (field of placementFields; track field.key) {
+                            <div class="mb-4">
+                                <label
+                                    class="block mb-2 after:content-['*'] after:ml-1 after:text-red-500"
+                                >
+                                    {{ field.label }}
+                                </label>
+
+                                <p-select
+                                    class="w-full"
+                                    [options]="signs()"
+                                    [ngModel]="form().placements[field.key]"
+                                    (ngModelChange)="updatePlacement(field.key, $event)"
+                                    optionLabel="label"
+                                    optionValue="value"
+                                    placeholder="Select sign"
+                                ></p-select>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="flex pt-6 justify-end">
+                        <p-button
+                            (onClick)="goToNextStep(2, activateCallback)"
+                            label="Next"
+                        ></p-button>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+
+            <!-- STEP 2 : BALAS -->
+            <p-step-panel [value]="2">
+                <ng-template pTemplate="content" let-activateCallback="activateCallback">
+                    @for (bala of balaFields; track bala.key) {
+                        <div class="mb-6">
+                            <h5 class="font-semibold mb-2">
+                                {{ bala.label }}
+                            </h5>
+
+                            <div class="grid grid-cols-7 gap-3">
+                                @for (i of balaIndexes; track i) {
+                                    <input
+                                        class="w-full h-10 px-3 border border-input rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-background"
+                                        [ngModel]="form().balas[bala.key][i]"
+                                        (ngModelChange)="updateBala(bala.key, i, $event)"
+                                        type="number"
+                                    />
+                                }
+                            </div>
+                        </div>
+                    }
+
+                    <div class="flex pt-6 justify-between">
+                        <p-button (onClick)="activateCallback(1)" label="Back"></p-button>
+
+                        <p-button (onClick)="submitForm()" label="Submit"></p-button>
+                    </div>
+                </ng-template>
+            </p-step-panel>
+        </p-step-panels>
+    </p-stepper>
+</div>
+@if (response()) {
+    <div
+        class="w-full mt-4 bg-white rounded-2xl p-6 flex flex-col gap-4 rotate-0 box-border"
+        #effectsContainer
+    >
+        <h4 class="font-black font-lexend text-lg">Bhava Lord Effects Obtained</h4>
+        <p-table [value]="response()?.effects ?? []" showGridlines>
+            <ng-template #header>
+                <tr>
+                    <th>Sl.No</th>
+                    <th>Effects</th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-item let-rowIndex="rowIndex">
+                <tr>
+                    <td>{{ rowIndex + 1 }}</td>
+                    <td>{{ item }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <h4 class="mt-2 font-black font-lexend text-lg">Shadbala Ranks</h4>
+        <div class="text-sm my-2">Shadbala comments: {{ response()?.shadBalaComments }}</div>
+        <p-table [value]="response()?.shadRanks ?? []" showGridlines>
+            <ng-template #header>
+                <tr>
+                    <th>Rank</th>
+                    <th>Graha</th>
+                    <th>Effective Bala</th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-item>
+                <tr>
+                    <td>{{ item.rank }}</td>
+                    <td>{{ item.graha }}</td>
+                    <td>{{ item.effectiveBala }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="flex gap-4 w-full mt-4">
+        <div class="flex-1 basis-1/2">
+            <div
+                class="w-full h-[39rem] bg-white rounded-2xl p-6 flex flex-col gap-4 rotate-0 box-border"
+            >
+                <h4 class="font-lexend text-lg">Sthana Bala Ranks</h4>
+                <div class="text-sm my-2">
+                    Sthanabala comments: {{ response()?.top3SthanaLords }}
+                </div>
+                <p-table [value]="response()?.sthanaRanks ?? []" showGridlines>
+                    <ng-template #header>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Graha</th>
+                            <th>Effective Bala</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-item>
+                        <tr>
+                            <td>{{ item.rank }}</td>
+                            <td>{{ item.graha }}</td>
+                            <td>{{ item.effectiveBala }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div class="flex-1 basis-1/2">
+            <div
+                class="w-full h-[39rem] bg-white rounded-2xl p-6 flex flex-col gap-4 rotate-0 box-border"
+            >
+                <h4 class="font-lexend text-lg">Kaala Bala Ranks</h4>
+                <div class="text-sm my-2">Kaalabala comments: {{ response()?.top3KaalaLords }}</div>
+                <p-table [value]="response()?.kaalaranks ?? []" showGridlines>
+                    <ng-template #header>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Graha</th>
+                            <th>Effective Bala</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-item>
+                        <tr>
+                            <td>{{ item.rank }}</td>
+                            <td>{{ item.graha }}</td>
+                            <td>{{ item.effectiveBala }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+}
+<p-toast position="bottom-right" key="br" />
