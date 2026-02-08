@@ -1,0 +1,96 @@
+{
+    "name": "astrology",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "prefix": "app",
+    "sourceRoot": "apps/astrology/src",
+    "tags": [],
+    "targets": {
+        "build": {
+            "executor": "@angular/build:application",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "outputPath": "dist/apps/astrology",
+                "browser": "apps/astrology/src/main.ts",
+                "tsConfig": "apps/astrology/tsconfig.app.json",
+                "inlineStyleLanguage": "scss",
+                "assets": [
+                    {
+                        "glob": "chart-line.svg",
+                        "input": "apps/astrology/public",
+                        "output": "/assets"
+                    },
+                    {
+                        "glob": "dashboard.svg",
+                        "input": "apps/astrology/public",
+                        "output": "/assets"
+                    },
+                    {
+                        "glob": "om.ico",
+                        "input": "apps/astrology/public",
+                        "output": "/assets"
+                    },
+                    {
+                        "glob": "houses.svg",
+                        "input": "apps/astrology/public",
+                        "output": "/assets"
+                    },
+                    {
+                        "glob": "user.svg",
+                        "input": "apps/astrology/public",
+                        "output": "/assets"
+                    }
+                ],
+                "styles": ["apps/astrology/src/styles.scss"]
+            },
+            "configurations": {
+                "production": {
+                    "budgets": [
+                        {
+                            "type": "initial",
+                            "maximumWarning": "500kb",
+                            "maximumError": "1mb"
+                        },
+                        {
+                            "type": "anyComponentStyle",
+                            "maximumWarning": "4kb",
+                            "maximumError": "8kb"
+                        }
+                    ],
+                    "outputHashing": "all"
+                },
+                "development": {
+                    "optimization": false,
+                    "extractLicenses": false,
+                    "sourceMap": true
+                }
+            },
+            "defaultConfiguration": "production"
+        },
+        "serve": {
+            "continuous": true,
+            "executor": "@angular/build:dev-server",
+            "configurations": {
+                "production": {
+                    "buildTarget": "astrology:build:production"
+                },
+                "development": {
+                    "buildTarget": "astrology:build:development"
+                }
+            },
+            "defaultConfiguration": "development"
+        },
+        "lint": {
+            "executor": "@nx/eslint:lint"
+        },
+        "serve-static": {
+            "continuous": true,
+            "executor": "@nx/web:file-server",
+            "options": {
+                "buildTarget": "astrology:build",
+                "staticFilePath": "dist/apps/astrology/browser",
+                "spa": true
+            }
+        }
+    }
+}
