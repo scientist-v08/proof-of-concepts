@@ -11,6 +11,7 @@ import {
     BhavaLordAndShadBalaResBody,
     BhavaLordsForm,
 } from '../models/bhava-lord-effects.interface';
+import { PairingReq, PairingResponse } from '../models/rashiNakshatra.interface';
 import { Form } from '../models/rasi-form.interface';
 
 @Injectable({
@@ -91,5 +92,10 @@ export class ApiService {
             shadBala: balas.shadBala as number[],
         };
         return this.http.post<BhavaLordAndShadBalaResBody>(reqUrl, reqBody);
+    }
+
+    public calculateDoshaSamya(form: PairingReq): Observable<PairingResponse> {
+        const reqUrl = this.url + 'pairing';
+        return this.http.post<PairingResponse>(reqUrl, form);
     }
 }
