@@ -1,1 +1,242 @@
-pairing
+<div class="w-full mt-2 bg-white rounded-2xl p-6 flex flex-col gap-6 box-border">
+    <!-- GROOM STEPPER -->
+    <div class="pb-4">
+        <h3 class="font-black font-lexend text-xl mb-4">Couple Details</h3>
+
+        <p-stepper
+            [linear]="true"
+            [value]="groomActiveStep()"
+            (valueChange)="onGroomStepChange($event)"
+        >
+            <p-step-list>
+                <p-step [value]="1">Groom Graha Placements</p-step>
+                <p-step [value]="2">Bride Graha Placements</p-step>
+            </p-step-list>
+
+            <p-step-panels>
+                <!-- STEP 1: GROOM PLACEMENTS -->
+                <p-step-panel [value]="1">
+                    <ng-template pTemplate="content" let-activateCallback="activateCallback">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            @for (field of placementFields; track field.key) {
+                                <div class="mb-4">
+                                    <label
+                                        class="block mb-2 font-medium after:content-['*'] after:ml-1 after:text-red-500"
+                                    >
+                                        {{ field.label }} (Groom)
+                                    </label>
+                                    @if (field.key == 'nakshatra') {
+                                        <p-select
+                                            class="w-full"
+                                            [options]="groomNakshatras()"
+                                            [ngModel]="groomForm().placements[field.key]"
+                                            (ngModelChange)="
+                                                updateGroomPlacement(field.key, $event)
+                                            "
+                                            optionLabel="label"
+                                            optionValue="value"
+                                            placeholder="Select Rashi"
+                                        ></p-select>
+                                    } @else {
+                                        <p-select
+                                            class="w-full"
+                                            [options]="signs()"
+                                            [ngModel]="groomForm().placements[field.key]"
+                                            (ngModelChange)="
+                                                updateGroomPlacement(field.key, $event)
+                                            "
+                                            optionLabel="label"
+                                            optionValue="value"
+                                            placeholder="Select Rashi"
+                                        ></p-select>
+                                    }
+                                    @if (field.key == 'chandraPlacement') {
+                                        <div class="flex align-items-center mt-2">
+                                            @if (inMakaraOrDhanuFirstHalfGroom()) {
+                                                <p-checkbox
+                                                    [ngModel]="groomFirstHalf()"
+                                                    (ngModelChange)="updateGroomHalf()"
+                                                    binary="true"
+                                                    name="isFirstHalf"
+                                                    inputId="isFirstHalf"
+                                                ></p-checkbox>
+                                                <label class="ml-2" for="isFirstHalf">
+                                                    Is First Half?
+                                                </label>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+
+                        <div class="flex pt-6 justify-end">
+                            <p-button
+                                [disabled]="groomPlacementsIncomplete()"
+                                (onClick)="goToNextGroomStep(2, activateCallback)"
+                                label="Next"
+                            ></p-button>
+                        </div>
+                    </ng-template>
+                </p-step-panel>
+
+                <!-- STEP 2: BRIDE STEPPER -->
+                <p-step-panel [value]="2">
+                    <ng-template pTemplate="content" let-activateCallback="activateCallback">
+                        <h4 class="font-semibold mb-4">Bride Placements</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            @for (field of placementFields; track field.key) {
+                                <div class="mb-4">
+                                    <label
+                                        class="block mb-2 font-medium after:content-['*'] after:ml-1 after:text-red-500"
+                                    >
+                                        {{ field.label }} (Bride)
+                                    </label>
+                                    @if (field.key == 'nakshatra') {
+                                        <p-select
+                                            class="w-full"
+                                            [options]="brideNakshatras()"
+                                            [ngModel]="brideForm().placements[field.key]"
+                                            (ngModelChange)="
+                                                updateBridePlacement(field.key, $event)
+                                            "
+                                            optionLabel="label"
+                                            optionValue="value"
+                                            placeholder="Select Rashi"
+                                        ></p-select>
+                                    } @else {
+                                        <p-select
+                                            class="w-full"
+                                            [options]="signs()"
+                                            [ngModel]="brideForm().placements[field.key]"
+                                            (ngModelChange)="
+                                                updateBridePlacement(field.key, $event)
+                                            "
+                                            optionLabel="label"
+                                            optionValue="value"
+                                            placeholder="Select Rashi"
+                                        ></p-select>
+                                    }
+                                    @if (field.key == 'chandraPlacement') {
+                                        <div class="flex align-items-center mt-2">
+                                            @if (inMakaraOrDhanuFirstHalfBride()) {
+                                                <p-checkbox
+                                                    [ngModel]="brideFirstHalf()"
+                                                    (ngModelChange)="updateBrideHalf()"
+                                                    binary="true"
+                                                    name="isFirstHalfBride"
+                                                    inputId="isFirstHalfBride"
+                                                ></p-checkbox>
+                                                <label class="ml-2" for="isFirstHalfBride">
+                                                    Is First Half?
+                                                </label>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+
+                        <div class="flex pt-6 justify-between">
+                            <p-button (onClick)="activateCallback(1)" label="Back"></p-button>
+                            <p-button (onClick)="submitDoshaSamya()" label="Submit"></p-button>
+                        </div>
+                    </ng-template>
+                </p-step-panel>
+            </p-step-panels>
+        </p-stepper>
+    </div>
+</div>
+@if (allEffects() !== null) {
+    <div
+        class="w-full mt-4 bg-white rounded-2xl p-6 flex flex-col gap-4 rotate-0 box-border"
+        #effectsContainer
+    >
+        <h4 class="font-black font-lexend text-lg">Astakuta points obtained</h4>
+        <div class="mt-2">
+            <p class="font-black">Additional comments:</p>
+            <span class="text-md">{{ allEffects()?.rajjuAndOther }}</span>
+        </div>
+        <div class="mt-2">
+            <p class="font-black">Dosha Samya:</p>
+            <span class="text-md">{{ allEffects()?.whoseIsGreater }}</span>
+        </div>
+        <p-table [value]="allEffects()?.kuta ?? []" showGridlines>
+            <ng-template #header>
+                <tr>
+                    <th>Sl. No</th>
+                    <th>Score</th>
+                    <th>Comments</th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-item>
+                <tr>
+                    <td>{{ item.index + 1 }}</td>
+                    <td>{{ item.score }}</td>
+                    <td>{{ item.comments }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <div class="flex gap-4 w-full mt-4">
+        <div class="flex-1 basis-1/2">
+            <div
+                class="w-full h-[24rem] bg-white rounded-2xl p-6 flex flex-col gap-4 rotate-0 box-border"
+            >
+                <h4 class="font-lexend text-lg">Groom doshas</h4>
+                <p-table
+                    [scrollable]="true"
+                    [value]="allEffects()?.groomDosha ?? []"
+                    scrollHeight="280px"
+                    showGridlines
+                >
+                    <ng-template #header>
+                        <tr>
+                            <th>Ascendant Considered</th>
+                            <th>Graha</th>
+                            <th>Dosha Score</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-item>
+                        <tr>
+                            <td>{{ item.ascendantConsidered }}</td>
+                            <td>{{ item.grahaInQuestion }}</td>
+                            <td>{{ item.doshaScore }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div class="flex-1 basis-1/2">
+            <div
+                class="w-full h-[24rem] bg-white rounded-2xl p-6 flex flex-col gap-4 rotate-0 box-border"
+            >
+                <h4 class="font-lexend text-lg">Bride doshas</h4>
+                <p-table
+                    [scrollable]="true"
+                    [value]="allEffects()?.brideDosha ?? []"
+                    scrollHeight="280px"
+                    showGridlines
+                >
+                    <ng-template #header>
+                        <tr>
+                            <th>Ascendant Considered</th>
+                            <th>Graha</th>
+                            <th>Dosha Score</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-item>
+                        <tr>
+                            <td>{{ item.ascendantConsidered }}</td>
+                            <td>{{ item.grahaInQuestion }}</td>
+                            <td>{{ item.doshaScore }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Optional: Toast for messages -->
+<p-toast position="bottom-right" key="br"></p-toast>
