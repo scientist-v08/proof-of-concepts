@@ -5,7 +5,9 @@
     "author": "Nash Sharma",
     "scripts": {
         "crackers": "npx nx serve crackers --port 4234",
-        "astrology": "npx nx serve astrology --port 4234"
+        "crackers:build": "npx nx build crackers --prod",
+        "astrology": "npx nx serve astrology --port 4234",
+        "astrology:build": "npx nx build astrology --prod"
     },
     "private": true,
     "dependencies": {
