@@ -20,7 +20,8 @@
                         "input": "apps/crackers/public"
                     }
                 ],
-                "styles": ["apps/crackers/src/styles.scss"]
+                "styles": ["apps/crackers/src/styles.scss"],
+                "stylePreprocessorOptions": {}
             },
             "configurations": {
                 "production": {

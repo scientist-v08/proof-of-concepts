@@ -41,7 +41,8 @@
                         "output": "/assets"
                     }
                 ],
-                "styles": ["apps/astrology/src/styles.scss"]
+                "styles": ["apps/astrology/src/styles.scss"],
+                "stylePreprocessorOptions": {}
             },
             "configurations": {
                 "production": {
