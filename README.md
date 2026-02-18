@@ -6,12 +6,12 @@ A curated collection of **Proof of Concepts** built with [Angular](https://angul
 
 ## 📦 What's Inside
 
-| POC     | Description         | Status      |
-| ------- | ------------------- | ----------- |
-| `poc-1` | _Crackers_          | Completed   |
-| `poc-2` | _Astrology project_ | In progress |
+| POC         | Description                                                                                           | Status      |
+| ----------- | ----------------------------------------------------------------------------------------------------- | ----------- |
+| `Crackers`  | _Vinayaka crackers billing software_                                                                  | Completed   |
+| `Astrology` | _Software of the 3 books, namely BPHS, The art of matching horoscopes & The best way to use ShadBala_ | Completed   |
 
-Each POC is a standalone application or library within the Nx workspace, ensuring clean boundaries and independent evolution.
+Each POC is a standalone application within the Nx workspace, ensuring clean boundaries and independent evolution.
 
 ---
 
