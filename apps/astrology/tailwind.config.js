@@ -11,6 +11,7 @@ module.exports = {
     },
     content: [
         join(__dirname, 'src/**/*.{html,ts}'),
+        join(__dirname, 'src/index.html'),
         ...createGlobPatternsForDependencies(__dirname),
     ],
 };

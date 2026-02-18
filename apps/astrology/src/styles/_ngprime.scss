@@ -1,42 +1,13 @@
 /* Overriding the in-built ng-prime styles */
-.p-tablist {
-  margin-bottom: 1rem;
-}
-
-.p-tabpanels {
-  background-color: transparent !important;
-  padding: 0 !important;
-}
-
-.p-tablist-tab-list {
-  border: none !important;
-  border-width: 0 !important;
-  border-color: transparent !important;
-  border-style: none !important;
-}
-
-.p-tablist-tab-list {
-  background-color: transparent !important;
-}
-
-.p-tab-active {
-  background-color: #ade5e5 !important;
-  color: black !important;
-}
-
-.p-tab {
-  color: black !important;
-}
-
 .p-datatable-thead {
-  tr {
-    th {
-      background-color: #e6ecf2 !important;
-      border-color: #d1d1d1 !important;
+    tr {
+        th {
+            background-color: #e6ecf2 !important;
+            border-color: #d1d1d1 !important;
+        }
     }
-  }
 }
 
 .p-datatable-tbody > tr > td {
-  border-color: #d1d1d1 !important;
+    border-color: #d1d1d1 !important;
 }

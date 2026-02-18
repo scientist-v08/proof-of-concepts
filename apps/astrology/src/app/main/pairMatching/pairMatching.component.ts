@@ -169,6 +169,9 @@ export default class PairMatchingComponent implements OnDestroy {
             p.shaniPlacement,
             p.rahuPlacement,
             p.guruPlacement,
+            p.budhaPlacement,
+            p.ketuPlacement,
+            p.nakshatra,
         ].some(v => v === null);
     });
 
@@ -183,6 +186,9 @@ export default class PairMatchingComponent implements OnDestroy {
             p.shaniPlacement,
             p.rahuPlacement,
             p.guruPlacement,
+            p.budhaPlacement,
+            p.ketuPlacement,
+            p.nakshatra,
         ].some(v => v === null);
     });
 

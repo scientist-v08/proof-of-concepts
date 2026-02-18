@@ -18,7 +18,7 @@ import { AstroSvgComponent } from '../svg/astrosvg.component';
             <div class="w-full h-[17rem] flex flex-col gap-4">
                 <a
                     class="text-white no-underline text-base p-4 rounded ml-[7%] flex items-end w-full hover:bg-white/10 cursor-pointer"
-                    routerLink="/houses"
+                    routerLink="/astrology/houses"
                     routerLinkActive="bg-white/10"
                 >
                     <img class="mr-2 h-5" src="/assets/houses.svg" />
@@ -26,7 +26,7 @@ import { AstroSvgComponent } from '../svg/astrosvg.component';
                 </a>
                 <a
                     class="text-white no-underline text-base p-4 rounded ml-[7%] flex items-end w-full hover:bg-white/10 cursor-pointer"
-                    routerLink="/bnk"
+                    routerLink="/astrology/bnk"
                     routerLinkActive="bg-white/10"
                 >
                     <img class="mr-2 h-5" src="/assets/dashboard.svg" />
@@ -34,7 +34,7 @@ import { AstroSvgComponent } from '../svg/astrosvg.component';
                 </a>
                 <a
                     class="text-white no-underline text-base p-4 rounded ml-[7%] flex items-end w-full hover:bg-white/10 cursor-pointer"
-                    routerLink="/pairing"
+                    routerLink="/astrology/pairing"
                     routerLinkActive="bg-white/10"
                 >
                     <img class="mr-2 h-5" src="/assets/chart-line.svg" />
