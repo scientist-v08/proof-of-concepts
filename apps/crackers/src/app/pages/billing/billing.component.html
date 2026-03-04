@@ -68,6 +68,10 @@
                         <input
                             class="w-full placeholder:text-indigo-900 dark:placeholder:text-white dark:bg-transparent dark:text-white mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
                             id="number"
+                            min="0"
+                            step="1"
+                            onpaste="return false;"
+                            onkeydown="return event.key !== '-' && event.key !== 'e' && event.key !== 'E'"
                             formControlName="number"
                             type="number"
                             placeholder="Enter customer number"
@@ -176,6 +180,10 @@
                         <input
                             class="w-full placeholder:text-indigo-900 dark:placeholder:text-white dark:bg-transparent dark:text-white mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
                             id="mrp"
+                            min="0"
+                            step="1"
+                            onpaste="return false;"
+                            onkeydown="return event.key !== '-' && event.key !== 'e' && event.key !== 'E'"
                             formControlName="MRP"
                             type="number"
                             placeholder="Enter MRP/Net Rate"
@@ -197,6 +205,10 @@
                         <input
                             class="w-full placeholder:text-indigo-900 dark:placeholder:text-white dark:bg-transparent dark:text-white mb-4 p-2 border border-indigo-200 dark:border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:focus:ring-amber-400"
                             id="quantity"
+                            min="0"
+                            step="1"
+                            onpaste="return false;"
+                            onkeydown="return event.key !== '-' && event.key !== 'e' && event.key !== 'E'"
                             formControlName="quantity"
                             type="number"
                             placeholder="Enter Quantity"
@@ -211,13 +223,15 @@
                 </div>
                 <div class="w-full flex items-center justify-center mt-2">
                     <div class="flex justify-between gap-4 items-center flex-col md:flex-row">
-                        <app-button (buttonClicked)="addItem()">Add item +</app-button>
+                        <app-button (buttonClicked)="addItem()">Add item</app-button>
                         <div>
                             <app-button (buttonClicked)="calculateTotal()">
                                 Calculate Total
                             </app-button>
                             @if (selectAtLeastOneitem()) {
-                                <div class="text-red-500 text-sm">Quantity is required</div>
+                                <div class="text-red-500 text-sm">
+                                    At least one item is to be added
+                                </div>
                             }
                         </div>
                         <app-button (buttonClicked)="newBill()">New Bill</app-button>
